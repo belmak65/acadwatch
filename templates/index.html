@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICTMD Türkiye — Akademik Yayın Takip</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <i class="bi bi-journal-bookmark-fill fs-5"></i>
+      <span class="fw-bold">ICTMD Türkiye</span>
+      <span class="fw-light d-none d-sm-inline">Akademik Yayın Takip</span>
+    </a>
+    <div class="d-flex align-items-center gap-2">
+      <span class="badge bg-light text-dark" id="badge-total">— yayın</span>
+      <span class="badge bg-secondary" id="badge-active">— akademisyen</span>
+    </div>
+  </div>
+</nav>
+
+<!-- Kontrol Paneli -->
+<div class="control-bar shadow-sm">
+  <div class="container-fluid px-4">
+    <div class="d-flex flex-wrap align-items-center gap-3 py-2">
+
+      <!-- Ay seçici -->
+      <div class="d-flex align-items-center gap-2">
+        <button class="btn btn-sm btn-outline-secondary" id="btn-prev-month" title="Önceki ay">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+        <div class="d-flex gap-1">
+          <select class="form-select form-select-sm" id="sel-month" style="width:110px">
+            <option value="1">Ocak</option><option value="2">Şubat</option>
+            <option value="3">Mart</option><option value="4">Nisan</option>
+            <option value="5">Mayıs</option><option value="6">Haziran</option>
+            <option value="7">Temmuz</option><option value="8">Ağustos</option>
+            <option value="9">Eylül</option><option value="10">Ekim</option>
+            <option value="11">Kasım</option><option value="12">Aralık</option>
+          </select>
+          <select class="form-select form-select-sm" id="sel-year" style="width:90px"></select>
+        </div>
+        <button class="btn btn-sm btn-outline-secondary" id="btn-next-month" title="Sonraki ay">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+
+      <!-- Tarama butonu -->
+      <button class="btn btn-primary btn-sm" id="btn-scan">
+        <i class="bi bi-search me-1"></i>Tara
+      </button>
+
+      <!-- Manuel ekle -->
+      <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#modal-manual">
+        <i class="bi bi-plus-circle me-1"></i>Manuel Ekle
+      </button>
+
+      <!-- Rapor -->
+      <button class="btn btn-outline-secondary btn-sm" id="btn-report">
+        <i class="bi bi-file-earmark-text me-1"></i>Rapor
+      </button>
+
+      <!-- Tarama durumu -->
+      <div id="scan-status" class="d-none">
+        <div class="d-flex align-items-center gap-2">
+          <div class="spinner-border spinner-border-sm text-primary" role="status"></div>
+          <span id="scan-status-text" class="small text-muted">Tarıyor...</span>
+          <div class="progress" style="width:120px;height:8px">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" id="scan-progress-bar" style="width:0%"></div>
+          </div>
+          <span id="scan-progress-pct" class="small text-muted">0%</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- İstatistik kartları -->
+<div class="container-fluid px-4 mt-3">
+  <div class="row g-3 mb-3" id="stats-row">
+    <div class="col-6 col-sm-3">
+      <div class="stat-card">
+        <div class="stat-label">Bu Ay Yayın</div>
+        <div class="stat-value text-primary" id="stat-curr">—</div>
+        <div class="stat-sub" id="stat-curr-sub"></div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-3">
+      <div class="stat-card">
+        <div class="stat-label">Geçen Ay</div>
+        <div class="stat-value text-secondary" id="stat-prev">—</div>
+        <div class="stat-sub" id="stat-prev-sub"></div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-3">
+      <div class="stat-card">
+        <div class="stat-label">Aktif Akademisyen</div>
+        <div class="stat-value text-success" id="stat-active">—</div>
+        <div class="stat-sub">46 üyeden</div>
+      </div>
+    </div>
+    <div class="col-6 col-sm-3">
+      <div class="stat-card">
+        <div class="stat-label">Son Tarama</div>
+        <div class="stat-value-sm" id="stat-scan-date">—</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ana içerik -->
+<div class="container-fluid px-4">
+  <div class="row g-3">
+
+    <!-- Sol: Akademisyen listesi -->
+    <div class="col-lg-4 col-xl-3">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center">
+          <span class="fw-semibold small">Akademisyenler</span>
+          <input type="text" class="form-control form-control-sm" id="acad-search"
+                 placeholder="Ara..." style="width:120px">
+        </div>
+        <div class="acad-list" id="acad-list">
+          <div class="text-center text-muted py-5">
+            <div class="spinner-border spinner-border-sm"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sağ: Yayın listesi -->
+    <div class="col-lg-8 col-xl-9">
+      <div class="card border-0 shadow-sm">
+        <div class="card-header bg-white border-bottom d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <span class="fw-semibold small" id="pub-list-title">Tüm Yayınlar</span>
+          <div class="d-flex gap-2 align-items-center flex-wrap">
+            <select class="form-select form-select-sm" id="sel-type-filter" style="width:140px">
+              <option value="">Tüm Türler</option>
+              <option value="article">Makale</option>
+              <option value="conference">Bildiri</option>
+              <option value="book">Kitap</option>
+              <option value="book-chapter">Kitap Bölümü</option>
+              <option value="preprint">Önbaskı</option>
+              <option value="event">Etkinlik</option>
+              <option value="other">Diğer</option>
+            </select>
+            <button class="btn btn-sm btn-outline-secondary" id="btn-clear-filter" title="Filtreyi temizle">
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        </div>
+        <div id="pub-list">
+          <div class="text-center text-muted py-5">
+            <i class="bi bi-search fs-2 d-block mb-2 opacity-25"></i>
+            Taramayı başlatın veya bir akademisyen seçin
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Manuel Ekleme Modalı -->
+<div class="modal fade" id="modal-manual" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-plus-circle me-2"></i>Yayın / Etkinlik Ekle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form id="form-manual">
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label fw-semibold">Akademisyen <span class="text-danger">*</span></label>
+              <select class="form-select" id="m-acad" required>
+                <option value="">Seçin...</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label fw-semibold">Yayın Türü</label>
+              <select class="form-select" id="m-type">
+                <option value="article">Makale</option>
+                <option value="conference">Bildiri</option>
+                <option value="book">Kitap</option>
+                <option value="book-chapter">Kitap Bölümü</option>
+                <option value="preprint">Önbaskı</option>
+                <option value="event">Etkinlik (Konser/Gösteri)</option>
+                <option value="other">Diğer</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-semibold">Başlık <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" id="m-title" required placeholder="Yayın / etkinlik başlığı">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label fw-semibold">Dergi / Yer</label>
+              <input type="text" class="form-control" id="m-journal" placeholder="Dergi adı veya etkinlik yeri">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Yıl <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="m-year" required min="2000" max="2030">
+            </div>
+            <div class="col-md-3">
+              <label class="form-label fw-semibold">Ay <span class="text-danger">*</span></label>
+              <select class="form-select" id="m-month" required>
+                <option value="1">Ocak</option><option value="2">Şubat</option>
+                <option value="3">Mart</option><option value="4">Nisan</option>
+                <option value="5">Mayıs</option><option value="6">Haziran</option>
+                <option value="7">Temmuz</option><option value="8">Ağustos</option>
+                <option value="9">Eylül</option><option value="10">Ekim</option>
+                <option value="11">Kasım</option><option value="12">Aralık</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">DOI</label>
+              <input type="text" class="form-control" id="m-doi" placeholder="10.xxxx/...">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">URL</label>
+              <input type="url" class="form-control" id="m-url" placeholder="https://...">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Yazarlar</label>
+              <input type="text" class="form-control" id="m-authors" placeholder="Ad Soyad, Ad Soyad, ...">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Notlar</label>
+              <textarea class="form-control" id="m-notes" rows="2" placeholder="Ek notlar..."></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
+        <button type="button" class="btn btn-success" id="btn-save-manual">
+          <i class="bi bi-check-circle me-1"></i>Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bildirim toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toast-msg" class="toast align-items-center border-0" role="alert">
+    <div class="d-flex">
+      <div class="toast-body" id="toast-body">Bildirim</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

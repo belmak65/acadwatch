@@ -1,0 +1,242 @@
+/* ICTMD Akademik Takip — Stil */
+
+:root {
+  --primary: #1a237e;
+  --primary-light: #283593;
+  --accent: #1976d2;
+  --bg: #f0f2f5;
+  --card-bg: #fff;
+}
+
+body {
+  background: var(--bg);
+  font-size: 0.9rem;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  padding: 0.65rem 0;
+}
+
+/* Kontrol bar */
+.control-bar {
+  background: #fff;
+  border-bottom: 1px solid #dee2e6;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/* İstatistik kartları */
+.stat-card {
+  background: var(--card-bg);
+  border-radius: 0.75rem;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 1px 6px rgba(0,0,0,.07);
+  height: 100%;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6c757d;
+  margin-bottom: 0.25rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.stat-value-sm {
+  font-size: 0.85rem;
+  color: #495057;
+  margin-top: 0.25rem;
+}
+
+.stat-sub {
+  font-size: 0.75rem;
+  color: #adb5bd;
+  margin-top: 0.15rem;
+}
+
+/* Akademisyen listesi */
+.acad-list {
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+}
+
+.acad-item {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f2f5;
+  transition: background 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.acad-item:hover {
+  background: #f8f9ff;
+}
+
+.acad-item.active {
+  background: #e8eaf6;
+  border-left: 3px solid var(--primary);
+}
+
+.acad-name {
+  font-weight: 500;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.acad-inst {
+  font-size: 0.73rem;
+  color: #6c757d;
+}
+
+.acad-badge {
+  flex-shrink: 0;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: #e9ecef;
+  color: #495057;
+}
+
+.acad-badge.has-pubs {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* Yayın listesi */
+#pub-list {
+  max-height: calc(100vh - 260px);
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.pub-card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 0.15s, border-color 0.15s;
+  position: relative;
+}
+
+.pub-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  border-color: #c5cae9;
+}
+
+.pub-title {
+  font-weight: 500;
+  font-size: 0.88rem;
+  line-height: 1.4;
+  margin-bottom: 0.3rem;
+}
+
+.pub-title a {
+  color: #212529;
+  text-decoration: none;
+}
+
+.pub-title a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.pub-meta {
+  font-size: 0.75rem;
+  color: #6c757d;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.pub-meta .dot::before {
+  content: "·";
+  margin-right: 0.4rem;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.type-article     { background: #1976d2; }
+.type-conference  { background: #388e3c; }
+.type-book        { background: #7b1fa2; }
+.type-book-chapter{ background: #c2185b; }
+.type-preprint    { background: #e64a19; }
+.type-thesis      { background: #00838f; }
+.type-event       { background: #ad1457; }
+.type-other       { background: #546e7a; }
+
+.source-badge {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.25rem;
+  background: #f1f3f5;
+  color: #495057;
+  border: 1px solid #dee2e6;
+}
+
+.source-badge.manual {
+  background: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+}
+
+.btn-del-pub {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 0.1rem 0.35rem;
+  font-size: 0.7rem;
+}
+
+.pub-card:hover .btn-del-pub {
+  opacity: 1;
+}
+
+/* Scrollbar ince */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #c5cae9;
+  border-radius: 3px;
+}
+
+/* Toast */
+#toast-msg.bg-success { background: #198754 !important; }
+#toast-msg.bg-danger  { background: #dc3545 !important; }
+
+/* Responsive */
+@media (max-width: 576px) {
+  .stat-value { font-size: 1.5rem; }
+  .control-bar .d-flex { gap: 0.5rem !important; }
+}
