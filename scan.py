@@ -2,12 +2,13 @@
 """
 ICTMD Türkiye Akademik Yayın Tarayıcı
 Kullanım:
-  python scan.py --test              → 3 akademisyen test taraması (Mart 2026)
-  python scan.py --test --year 2025  → 3 akademisyen, 2025 tüm yıl
-  python scan.py                     → Tüm 46 akademisyen (mevcut ay)
-  python scan.py --year 2025 --month 11  → Belirli ay
-  python scan.py --all-time          → Tüm yayınlar (ay filtresi yok)
-  python scan.py --demo              → Örnek veri ile çıktı formatını göster
+  python scan.py --test                      → 3 akademisyen test taraması
+  python scan.py --year 2025 --month 11      → Tek ay
+  python scan.py --year 2025 --months 10,11,12   → Birden fazla ay
+  python scan.py --year 2025 --month-range 2-6   → Ay aralığı
+  python scan.py --year 2025                 → Tüm yıl
+  python scan.py --all-time                  → Tüm yıllar
+  python scan.py --demo                      → Örnek çıktı
 """
 import json
 import sys
@@ -70,7 +71,8 @@ def fetch_orcid_works(orcid: str) -> list:
         print(f"  {RD}ORCID hata {orcid}: {e}{R}")
         return []
 
-def parse_orcid_works(groups, year=None, month=None, all_time=False):
+def parse_orcid_works(groups, year=None, months=None, all_time=False):
+    """months: set[int] | None  (None = ay filtresi yok)"""
     pubs = []
     for grp in groups:
         for s in grp.get("work-summary", []):
@@ -84,7 +86,7 @@ def parse_orcid_works(groups, year=None, month=None, all_time=False):
 
             if not all_time:
                 if year and py != year: continue
-                if month and pm is not None and pm != month: continue
+                if months and pm is not None and pm not in months: continue
 
             title_obj = s.get("title") or {}
             title = _sv(title_obj.get("title")) or "Başlıksız"
@@ -119,7 +121,8 @@ def find_ss_author(name: str) -> str | None:
         return results[0]["authorId"] if results else None
     except: return None
 
-def fetch_ss_papers(author_id: str, year=None, month=None, all_time=False) -> list:
+def fetch_ss_papers(author_id: str, year=None, months=None, all_time=False) -> list:
+    """months: set[int] | None  (None = ay filtresi yok)"""
     url = f"https://api.semanticscholar.org/graph/v1/author/{author_id}/papers"
     params = {
         "fields": "title,year,publicationDate,publicationTypes,journal,externalIds,venue",
@@ -143,9 +146,9 @@ def fetch_ss_papers(author_id: str, year=None, month=None, all_time=False) -> li
 
             if not all_time:
                 if year and py != year: continue
-                if month:
+                if months:
                     if pm is None: continue   # tarih belirsizse atla
-                    if pm != month: continue
+                    if pm not in months: continue
 
             ext = p.get("externalIds") or {}
             doi = ext.get("DOI")
@@ -175,7 +178,8 @@ def _map_ss_type(pub_types):
 
 
 # ── Akademisyen tarama ─────────────────────────────────────────────────────────
-def scan_one(acad: dict, year=None, month=None, all_time=False, verbose=True) -> list:
+def scan_one(acad: dict, year=None, months=None, all_time=False, verbose=True) -> list:
+    """months: set[int] | None"""
     name   = acad["name"]
     orcid  = acad.get("orcid", "")
     pubs   = []
@@ -195,7 +199,7 @@ def scan_one(acad: dict, year=None, month=None, all_time=False, verbose=True) ->
     # ORCID
     if orcid:
         groups = fetch_orcid_works(orcid)
-        orcid_pubs = parse_orcid_works(groups, year, month, all_time)
+        orcid_pubs = parse_orcid_works(groups, year, months, all_time)
         _add(orcid_pubs)
         if verbose and orcid_pubs:
             print(f"    {DIM}ORCID: {len(orcid_pubs)} yayın{R}")
@@ -205,7 +209,7 @@ def scan_one(acad: dict, year=None, month=None, all_time=False, verbose=True) ->
     ss_id = find_ss_author(name)
     if ss_id:
         time.sleep(0.8)
-        ss_pubs = fetch_ss_papers(ss_id, year, month, all_time)
+        ss_pubs = fetch_ss_papers(ss_id, year, months, all_time)
         _add(ss_pubs)
         if verbose and ss_pubs:
             print(f"    {DIM}Semantic Scholar: {len(ss_pubs)} yeni yayın{R}")
@@ -242,17 +246,25 @@ def print_results(name: str, pubs: list):
         print(f"    {DIM}{' | '.join(parts)}{R}")
 
 
-def print_summary(all_results: list, year, month, all_time):
+def _months_label(months, year, all_time):
+    if all_time:
+        return "Tüm yıllar"
+    if not months:
+        return f"{year} (tüm aylar)"
+    sorted_m = sorted(months)
+    if len(sorted_m) == 1:
+        return f"{MONTHS_TR[sorted_m[0]]} {year}"
+    names = [MONTHS_TR[m] for m in sorted_m]
+    return f"{', '.join(names)} {year}"
+
+
+def print_summary(all_results: list, year, months, all_time):
     total = sum(len(r["pubs"]) for r in all_results)
     active = sum(1 for r in all_results if r["pubs"])
     print()
     print(f"{B}{'═'*60}{R}")
     print(f"{B}ÖZET{R}")
-    if all_time:
-        print(f"  Dönem   : Tüm yıllar")
-    else:
-        m_str = MONTHS_TR[month] if month else "tüm aylar"
-        print(f"  Dönem   : {m_str} {year}")
+    print(f"  Dönem   : {_months_label(months, year, all_time)}")
     print(f"  Toplam  : {B}{GR}{total} yayın{R}")
     print(f"  Aktif   : {B}{active}/{len(all_results)} akademisyen{R}")
     print()
@@ -272,7 +284,7 @@ def print_summary(all_results: list, year, month, all_time):
 
 
 # ── JSON kayıt ────────────────────────────────────────────────────────────────
-def save_json(all_results: list, year, month, all_time, path: Path):
+def save_json(all_results: list, year, months, all_time, path: Path):
     publications = []
     for r in all_results:
         acad = r["acad"]
@@ -295,7 +307,9 @@ def save_json(all_results: list, year, month, all_time, path: Path):
     out = {
         "scan_date": datetime.now().isoformat(),
         "filter": {
-            "year": year, "month": month, "all_time": all_time,
+            "year": year,
+            "months": sorted(months) if months else None,
+            "all_time": all_time,
         },
         "total": len(publications),
         "publications": publications,
@@ -307,9 +321,8 @@ def save_json(all_results: list, year, month, all_time, path: Path):
 
 
 # ── HTML raporu ────────────────────────────────────────────────────────────────
-def save_html(all_results: list, year, month, all_time, path: Path):
+def save_html(all_results: list, year, months, all_time, path: Path):
     from report_generator import generate_report
-    from collections import defaultdict
 
     publications = []
     for r in all_results:
@@ -317,13 +330,15 @@ def save_html(all_results: list, year, month, all_time, path: Path):
         for p in r["pubs"]:
             publications.append({**p, "academician_name": acad["name"]})
 
-    current_data = {"year": year, "month": month or 0,
+    # Rapor üretici tek ay bekliyor; çok aylıda ilk ayı ya da 0 ver
+    disp_month = (sorted(months)[0] if months and len(months) == 1
+                  else (sorted(months)[0] if months else 0))
+    current_data = {"year": year or 0, "month": disp_month,
                     "scan_date": datetime.now().isoformat(),
                     "publications": publications}
-    prev_data = {}
     academicians = [r["acad"] for r in all_results]
 
-    html = generate_report(year or 0, month or 0, current_data, prev_data, academicians)
+    html = generate_report(year or 0, disp_month, current_data, {}, academicians)
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
     print(f"{GR}✓{R} HTML rapor kaydedildi: {B}{path}{R}")
@@ -378,20 +393,69 @@ def demo_data():
     ]
 
 
+def _parse_months(args) -> set | None:
+    """--month / --months / --month-range → set[int] | None"""
+    if getattr(args, "all_time", False):
+        return None
+
+    result = set()
+
+    if args.month:
+        result.add(args.month)
+
+    if args.months:
+        for part in args.months.split(","):
+            part = part.strip()
+            if part:
+                try:
+                    result.add(int(part))
+                except ValueError:
+                    raise SystemExit(f"Hatalı ay değeri: '{part}'")
+
+    if args.month_range:
+        parts = args.month_range.split("-")
+        if len(parts) != 2:
+            raise SystemExit("--month-range formatı: BAŞ-SON  (örn: 2-6)")
+        try:
+            start, end = int(parts[0]), int(parts[1])
+        except ValueError:
+            raise SystemExit("--month-range sayısal değer gerektirir")
+        if not (1 <= start <= end <= 12):
+            raise SystemExit("--month-range 1-12 arasında olmalı, başlangıç ≤ bitiş")
+        result.update(range(start, end + 1))
+
+    return result if result else None
+
+
+def _default_filenames(year, months, all_time):
+    if all_time:
+        return "results_all.json", "rapor_all.html"
+    if not months:
+        return f"results_{year}.json", f"rapor_{year}.html"
+    sorted_m = sorted(months)
+    if len(sorted_m) == 1:
+        return f"results_{year}_{sorted_m[0]:02d}.json", f"rapor_{year}_{sorted_m[0]:02d}.html"
+    return (f"results_{year}_{sorted_m[0]:02d}-{sorted_m[-1]:02d}.json",
+            f"rapor_{year}_{sorted_m[0]:02d}-{sorted_m[-1]:02d}.html")
+
+
 def main():
     parser = argparse.ArgumentParser(description="ICTMD Türkiye Akademik Tarayıcı")
-    parser.add_argument("--test",      action="store_true", help="3 akademisyen test taraması")
-    parser.add_argument("--demo",      action="store_true", help="Örnek veri ile çıktı formatını göster")
-    parser.add_argument("--year",      type=int, default=datetime.now().year)
-    parser.add_argument("--month",     type=int, default=None)
-    parser.add_argument("--all-time",  action="store_true", help="Ay filtresi olmadan tüm yayınlar")
-    parser.add_argument("--out",       default="results.json", help="JSON çıktı dosyası")
-    parser.add_argument("--html",      default="rapor.html",   help="HTML rapor dosyası")
+    parser.add_argument("--test",        action="store_true", help="3 akademisyen test taraması")
+    parser.add_argument("--demo",        action="store_true", help="Örnek veri ile çıktı formatını göster")
+    parser.add_argument("--year",        type=int, default=datetime.now().year)
+    parser.add_argument("--month",       type=int, default=None,  help="Tek ay (1-12)")
+    parser.add_argument("--months",      type=str, default=None,  help="Virgülle ayrılmış aylar: 10,11,12")
+    parser.add_argument("--month-range", type=str, default=None,  dest="month_range",
+                        help="Ay aralığı: 2-6")
+    parser.add_argument("--all-time",    action="store_true", help="Ay filtresi olmadan tüm yayınlar")
+    parser.add_argument("--out",         default=None, help="JSON çıktı dosyası (varsayılan otomatik)")
+    parser.add_argument("--html",        default=None, help="HTML rapor dosyası (varsayılan otomatik)")
     args = parser.parse_args()
 
     all_time = args.all_time
     year     = None if all_time else args.year
-    month    = None if all_time else args.month
+    months   = _parse_months(args)  # set[int] | None
 
     # Demo modu
     if args.demo:
@@ -409,13 +473,15 @@ def main():
             print(f"{BL}[{i}/{len(all_results)}]{R} {B}{acad['name']}{R}  {DIM}{acad.get('institution','')}{R}")
             print_results(acad["name"], r["pubs"])
             print()
-        print_summary(all_results, 2024, None, False)
-        save_json(all_results, 2024, None, False, Path(args.out))
-        save_html(all_results, 2024, None, False, Path(args.html))
+        demo_months = {9, 10, 11, 12}
+        print_summary(all_results, 2024, demo_months, False)
+        d_out, d_html = _default_filenames(2024, demo_months, False)
+        save_json(all_results, 2024, demo_months, False, Path(args.out or d_out))
+        save_html(all_results, 2024, demo_months, False, Path(args.html or d_html))
         print()
         print(f"{YL}NOT: Bu demo verileridir. Gerçek tarama için yerel makinenizde çalıştırın:{R}")
-        print(f"  pip install flask requests")
-        print(f"  python scan.py --test --year 2024")
+        print(f"  pip install requests")
+        print(f"  python scan.py --test --year 2024 --months 10,11,12")
         return
 
     # Akademisyenleri yükle
@@ -433,13 +499,7 @@ def main():
         academs = all_academs
         label = f"TAM ({len(all_academs)} akademisyen)"
 
-    # Başlık
-    if all_time:
-        period = "Tüm yayınlar"
-    elif month:
-        period = f"{MONTHS_TR[month]} {year}"
-    else:
-        period = f"{year} (tüm aylar)"
+    period = _months_label(months, year, all_time)
 
     print(f"\n{B}{'═'*60}")
     print(f"  ICTMD Türkiye Akademik Yayın Tarayıcı")
@@ -452,18 +512,19 @@ def main():
     all_results = []
     for i, acad in enumerate(academs, 1):
         print(f"{BL}[{i}/{len(academs)}]{R} {B}{acad['name']}{R}  {DIM}{acad.get('institution','')}{R}")
-        pubs = scan_one(acad, year=year, month=month, all_time=all_time, verbose=True)
+        pubs = scan_one(acad, year=year, months=months, all_time=all_time, verbose=True)
         print_results(acad["name"], pubs)
         all_results.append({"acad": acad, "pubs": pubs})
         print()
 
-    print_summary(all_results, year, month, all_time)
+    print_summary(all_results, year, months, all_time)
 
     if not args.test or any(r["pubs"] for r in all_results):
-        out_path  = Path(args.out)
-        html_path = Path(args.html)
-        save_json(all_results, year, month, all_time, out_path)
-        save_html(all_results, year, month, all_time, html_path)
+        def_out, def_html = _default_filenames(year, months, all_time)
+        out_path  = Path(args.out  or def_out)
+        html_path = Path(args.html or def_html)
+        save_json(all_results, year, months, all_time, out_path)
+        save_html(all_results, year, months, all_time, html_path)
     else:
         print(f"{YL}Test sonuçsuz kaldı — JSON/HTML kaydedilmedi.{R}")
 
