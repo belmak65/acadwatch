@@ -5,8 +5,8 @@ __pycache__/
 .env
 data/*.json
 reports/*.html
-results.json
-rapor.html
+results*.json
+rapor*.html
 *.egg-info/
 dist/
 build/
