@@ -20,6 +20,7 @@ from pathlib import Path
 from collections import defaultdict
 
 import requests
+from dergipark import scan_dergipark
 
 # ── Renkler ──────────────────────────────────────────────────────────────────
 R  = "\033[0m"
@@ -216,6 +217,12 @@ def scan_one(acad: dict, year=None, months=None, all_time=False, verbose=True) -
     else:
         if verbose: print(f"    {DIM}Semantic Scholar: yazar bulunamadı{R}")
 
+    # DergiPark
+    dp_pubs = scan_dergipark(name, orcid=orcid, year=year, months=months, all_time=all_time)
+    _add(dp_pubs)
+    if verbose and dp_pubs:
+        print(f"    {DIM}DergiPark: {len(dp_pubs)} yeni yayın{R}")
+
     return pubs
 
 
@@ -232,7 +239,7 @@ def print_results(name: str, pubs: list):
             "preprint":"[Önbaskı]", "event":"[Etkinlik]",
         }.get(p["type"], "[Diğer]")
 
-        src = {"orcid": "ORCID", "semantic_scholar": "S2"}.get(p["source"], p["source"])
+        src = {"orcid": "ORCID", "semantic_scholar": "S2", "dergipark": "DergiPark"}.get(p["source"], p["source"])
         date_str = f"{p['year']}"
         if p.get("month"): date_str += f"/{p['month']:02d}"
         uncertain = " ~" if not p.get("month_certain") else ""
