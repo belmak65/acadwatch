@@ -1,4 +1,428 @@
 [
+  {
+    "isim": "Abdullah Akat",
+    "kurum_veya_profil_url": "https://avesis.istanbul.edu.tr/abdullahakat/",
+    "yayin_url": "https://avesis.istanbul.edu.tr/abdullahakat/yayinlar",
+    "academia_url": "https://istanbul.academia.edu/AbdullahAKAT",
+    "orcid": "0000-0002-8045-2802",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Ahmet Mücahit Güven",
+    "kurum_veya_profil_url": "İTÜ",
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": "0009-0004-9601-4809",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Ali Keleş",
+    "kurum_veya_profil_url": "Trabzon Üniversitesi",
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": "0000-0002-2332-5209",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Arzu Öztürkmen",
+    "kurum_veya_profil_url": "https://hist.bogazici.edu.tr/people/arzu-ozturkmen",
+    "yayin_url": null,
+    "academia_url": "https://boun.academia.edu/Arzu%C3%96zt%C3%BCrkmen",
+    "orcid": "0000-0001-9497-7995",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Barbaros Ünlü",
+    "kurum_veya_profil_url": "https://unisis.ege.edu.tr/researcher=barbaros.unlu",
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": "0000-0003-2898-645X",
+    "alan1": null,
+    "alan2": "dans"
+  },
+  {
+    "isim": "Belma Oğul",
+    "kurum_veya_profil_url": "https://istanbultek.academia.edu/BelmaOgul & https://akademi.itu.edu.tr/ogulb/Fatma-Belma-O%C4%9Ful",
+    "yayin_url": "https://akademi.itu.edu.tr/tr/ogulb/",
+    "academia_url": "https://istanbultek.academia.edu/BelmaOgul",
+    "orcid": "0000-0002-5042-6953",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Bengi Çakmak",
+    "kurum_veya_profil_url": "https://uskudar.edu.tr/akademik-personel/bengi-cakmak-ucar",
+    "yayin_url": null,
+    "academia_url": "https://metu.academia.edu/Bengi%C3%87akmak",
+    "orcid": "0000-0003-2544-9974",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Berna Kurt Kemaloğlu",
+    "kurum_veya_profil_url": "https://avesis.yyu.edu.tr/bernakurt",
+    "yayin_url": null,
+    "academia_url": "https://yyu.academia.edu/BernaKurt",
+    "orcid": "0000-0002-9937-1308",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Burcu Yıldız Ataş",
+    "kurum_veya_profil_url": "https://istanbultek.academia.edu/BurcuYILDIZ",
+    "yayin_url": "https://akademi.itu.edu.tr/tr/yildizburc/",
+    "academia_url": "https://istanbultek.academia.edu/BurcuYILDIZ",
+    "orcid": "0000-0003-4438-0044",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Bülent Kurtişoğlu",
+    "kurum_veya_profil_url": "Ardahan Üniversitesi",
+    "yayin_url": "https://ubys.ardahan.edu.tr/ABPDS/AcademicInformation/BilgiGoruntulemev2/Index?pid=gv5z3Su0HPkrqpqpamg9rg!xGGx!!xGGx!",
+    "academia_url": "https://istanbultek.academia.edu/BulentKurtisoglu",
+    "orcid": "0000-0001-9550-9712",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Cenk Güray",
+    "kurum_veya_profil_url": "https://avesis.hacettepe.edu.tr/cenk.guray",
+    "yayin_url": null,
+    "academia_url": "https://hacettepe.academia.edu/CenkGuray",
+    "orcid": "0000-0002-9410-725X",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Dilek Cantekin Elyağutu",
+    "kurum_veya_profil_url": "https://dcantekin.sakarya.edu.tr/",
+    "yayin_url": null,
+    "academia_url": "https://sakarya.academia.edu/DilekCantekinElya%C4%9Futu",
+    "orcid": "0000-0002-0357-9148",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Elif Özen",
+    "kurum_veya_profil_url": "İTÜ",
+    "yayin_url": null,
+    "academia_url": "https://istanbultek.academia.edu/Elif%C3%96zen",
+    "orcid": "0000-0002-9948-0205",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Evrim Hikmet Öğüt",
+    "kurum_veya_profil_url": "https://mimarsinan.academia.edu/EvrimHikmetOgut",
+    "yayin_url": null,
+    "academia_url": "https://mimarsinan.academia.edu/EvrimHikmetOgut",
+    "orcid": "0000-0002-3861-5671",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Ezginur Küçükdürüm",
+    "kurum_veya_profil_url": null,
+    "yayin_url": null,
+    "academia_url": "https://istanbul.academia.edu/EzginurK%C3%9C%C3%87%C3%9CKD%C3%9CR%C3%9CM",
+    "orcid": "0009-0006-0432-7838",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Fahriye Dinçer",
+    "kurum_veya_profil_url": "https://avesis.yildiz.edu.tr/fahriyek",
+    "yayin_url": null,
+    "academia_url": "https://independent.academia.edu/fahriyedincer",
+    "orcid": "0000-0002-0148-8349",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Feza Tansuğ",
+    "kurum_veya_profil_url": null,
+    "yayin_url": null,
+    "academia_url": "https://independent.academia.edu/FezaTansu%C4%9F",
+    "orcid": null,
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Firket Merve Eken Küçükaksoy",
+    "kurum_veya_profil_url": "https://avesis.comu.edu.tr/fm.kucukaksoy",
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": "0000-0002-7021-3832",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Gonca Girgin",
+    "kurum_veya_profil_url": "https://istanbultek.academia.edu/GGirgin",
+    "yayin_url": "https://akademi.itu.edu.tr/zgoncat/",
+    "academia_url": "https://istanbultek.academia.edu/GGirgin",
+    "orcid": "0000-0003-3076-6763",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Gökçe Asena Altınbay Erdem",
+    "kurum_veya_profil_url": "https://ege.academia.edu/G%C3%B6k%C3%A7eAsenaALTINBAY",
+    "yayin_url": null,
+    "academia_url": "https://ege.academia.edu/G%C3%B6k%C3%A7eAsenaALTINBAY",
+    "orcid": "0000-0002-9028-1971",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Gökçe İşler",
+    "kurum_veya_profil_url": null,
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": null,
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Gökhan Altınbaş",
+    "kurum_veya_profil_url": "Trabzon Üniversitesi",
+    "yayin_url": null,
+    "academia_url": "https://trabzon.academia.edu/G%C3%B6khanAlt%C4%B1nba%C5%9F",
+    "orcid": "0000-0002-4803-562X",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Gül Kaplan Ekemen",
+    "kurum_veya_profil_url": "Sakarya Üniversitesi",
+    "yayin_url": null,
+    "academia_url": "https://ege.academia.edu/G%C3%BClKaplan",
+    "orcid": "0000-0003-4525-6985",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Haluk Öyküm Lumalı",
+    "kurum_veya_profil_url": "https://dicle.academia.edu/HalukOykumLUMALI",
+    "yayin_url": null,
+    "academia_url": "https://dicle.academia.edu/HalukOykumLUMALI",
+    "orcid": "0000-0003-2190-4175",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Hamraz Lotfi",
+    "kurum_veya_profil_url": null,
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": null,
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Hande Sağlam",
+    "kurum_veya_profil_url": "Unıversıtesat für Musik und darstellende Kunst Wien",
+    "yayin_url": null,
+    "academia_url": "https://mdw.academia.edu/HandeSa%C4%9Flam",
+    "orcid": "0000-0001-9589-4083",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "İdris Ersan Küçük",
+    "kurum_veya_profil_url": "https://ege.academia.edu/%C4%B0drisErsanK%C3%9C%C3%87%C3%9CK",
+    "yayin_url": "https://unisis.ege.edu.tr/researcher=idris.ersan.kucuk",
+    "academia_url": "https://ege.academia.edu/%C4%B0drisErsanK%C3%9C%C3%87%C3%9CK",
+    "orcid": "0000-0001-5320-1197",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "M. Emin Soydaş",
+    "kurum_veya_profil_url": "https://karatekin.academia.edu/EminSoydas",
+    "yayin_url": "https://karatekin.academia.edu/EminSoydas",
+    "academia_url": null,
+    "orcid": "0000-0001-8006-3463",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Mehmet Öcal Özbilgin",
+    "kurum_veya_profil_url": "https://unisis.ege.edu.tr/researcher=ocal.ozbilgin",
+    "yayin_url": null,
+    "academia_url": "https://ege.academia.edu/mehmetocalozbilgin",
+    "orcid": "0000-0002-3695-4928",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Mehtap Demir Güven",
+    "kurum_veya_profil_url": "https://avesis.istanbul.edu.tr/mehtapd/",
+    "yayin_url": null,
+    "academia_url": "https://ssuzer.academia.edu/mehtapdemir",
+    "orcid": "0000-0003-4654-7872",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Muzaffer Sümbül",
+    "kurum_veya_profil_url": "https://scholar.google.com.tr/citations?user=xwiXAX0AAAAJ&hl=tr",
+    "yayin_url": null,
+    "academia_url": "https://cu.academia.edu/MuzafferS%C3%9CMB%C3%9CL",
+    "orcid": "0000-0002-5877-643X",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Nevin Şahin",
+    "kurum_veya_profil_url": "https://adk.hacettepe.edu.tr/tr/dr_ogr_uyesi_nevin_sahin-95",
+    "yayin_url": null,
+    "academia_url": "https://metu.academia.edu/Nevin%C5%9Eahin",
+    "orcid": "0000-0003-2604-0185",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Olcay Muslu",
+    "kurum_veya_profil_url": "https://www.linkedin.com/in/olcay-muslu-36a05611b/",
+    "yayin_url": null,
+    "academia_url": "https://zqu.academia.edu/OlcayMusluPhD",
+    "orcid": "0000-0003-1512-2652",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Özgün Arda Nural",
+    "kurum_veya_profil_url": "https://dergipark.org.tr/tr/pub/@ozgun-arda-nural",
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": "0000-0002-9236-1625",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Özlem Doğuş Varlı",
+    "kurum_veya_profil_url": "Uludağ  Üniversitesi",
+    "yayin_url": null,
+    "academia_url": "https://uludag.academia.edu/%C3%96zlemDO%C4%9EU%C5%9EVARLI",
+    "orcid": "0000-0002-4264-2517",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Pınar Kasapoğlu",
+    "kurum_veya_profil_url": "Ankara Üniversitesi, Dil ve Tarih- Coğrafya Fakültesi / Halkbilimi Bölümü",
+    "yayin_url": "https://avesis.ankara.edu.tr/pkasapoglu",
+    "academia_url": "https://ankara.academia.edu/PinarKasapo%C4%9FluAkyol",
+    "orcid": "0000-0003-0106-368X",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Robert Oliver Beahrs",
+    "kurum_veya_profil_url": null,
+    "yayin_url": null,
+    "academia_url": null,
+    "orcid": "0000-0002-2730-6144",
+    "alan1": null,
+    "alan2": null
+  },
+  {
+    "isim": "Selda Öztürk",
+    "kurum_veya_profil_url": null,
+    "yayin_url": null,
+    "academia_url": "https://independent.academia.edu/%C3%B6zt%C3%BCrkselda",
+    "orcid": null,
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Serkan Şener",
+    "kurum_veya_profil_url": "İTÜ",
+    "yayin_url": null,
+    "academia_url": "https://istanbultek.academia.edu/Serkan%C5%9Eener",
+    "orcid": "0000-0002-2169-3104",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Sevi Bayraktar",
+    "kurum_veya_profil_url": "University for Music and Dance Cologne",
+    "yayin_url": null,
+    "academia_url": "https://hfmt-koeln.academia.edu/SeviBayraktar",
+    "orcid": "0000-0002-6858-6189",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Songül Karahasanoğlu",
+    "kurum_veya_profil_url": "https://research.itu.edu.tr/tr/persons/song%C3%BCl-karahasano%C4%9Flu",
+    "yayin_url": "https://akademi.itu.edu.tr/tr/atason/",
+    "academia_url": "https://istanbultek.academia.edu/Song%C3%BClKarahasano%C4%9Flu",
+    "orcid": "0000-0003-3861-1088",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Suna Başlantı",
+    "kurum_veya_profil_url": "İTÜ",
+    "yayin_url": null,
+    "academia_url": "https://istanbultek.academia.edu/SunaBaslanti",
+    "orcid": "0009-0005-2776-6262",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Şebnem Sözer Özdemir",
+    "kurum_veya_profil_url": "https://duzce.academia.edu/%C5%9EebnemS%C3%B6zer",
+    "yayin_url": null,
+    "academia_url": "https://duzce.academia.edu/%C5%9EebnemS%C3%B6zer",
+    "orcid": "0000-0001-5957-4306",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Şirin Özgün Tanır",
+    "kurum_veya_profil_url": "İTÜ",
+    "yayin_url": "https://akademi.itu.edu.tr/tr/sirozgun/",
+    "academia_url": null,
+    "orcid": "0000-0001-9467-3158",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Ulaş Özdemir",
+    "kurum_veya_profil_url": "https://istanbul.academia.edu/UlasOzdemir",
+    "yayin_url": "https://avesis.istanbul.edu.tr/ulasozdemir",
+    "academia_url": "https://istanbul.academia.edu/UlasOzdemir",
+    "orcid": "0000-0003-4528-517X",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Zehra Yılmaz",
+    "kurum_veya_profil_url": "İTÜ",
+    "yayin_url": null,
+    "academia_url": "https://independent.academia.edu/zehray%C4%B1lmaz2",
+    "orcid": "0000-0002-8035-9974",
+    "alan1": "müzik",
+    "alan2": "dans"
+  },
+  {
+    "isim": "Zozan Yıldız",
+    "kurum_veya_profil_url": "https://ardahan.academia.edu/ZozanY%C4%B1ld%C4%B1z",
+    "yayin_url": "https://ubys.ardahan.edu.tr/ABPDS/AcademicInformation/BilgiGoruntulemev2/Index?pid=Y!xDDx!cgWM8i3amvJhjjIGauyQ!xGGx!!xGGx!",
+    "academia_url": "https://ardahan.academia.edu/ZozanY%C4%B1ld%C4%B1z",
+    "orcid": "0000-0002-9097-1219",
+    "alan1": "müzik",
+    "alan2": "dans"
+  }
+][
   ldız Teknik Üniversitesi","orcid":"0000-0002-0148-8349","field":"Müzik / Dans","profileUrl":"https://avesis.yildiz.edu.tr/fahriyek"},
   {"name":"Feza Tansuğ","institution":"","orcid":"","field":"Müzik / Dans","profileUrl":""},
   {"name":"Firket Merve Eken Küçükaksoy","institution":"ÇOMÜ","orcid":"0000-0002-7021-3832","field":"Müzik / Dans","profileUrl":"https://avesis.comu.edu.tr/fm.kucukaksoy"},
