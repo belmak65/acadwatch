@@ -12,6 +12,7 @@ from flask import Flask, jsonify, request, render_template, send_file, abort
 
 import scanner as sc
 import report_generator as rg
+import acad_helpers as ah
 
 app = Flask(__name__)
 
@@ -199,7 +200,7 @@ def _run_scan(scan_id: str, year: int, month: int):
 
                 new_pubs.append({
                     "id": pub_id(),
-                    "academician_name": acad["name"],
+                    "academician_name": ah.name(acad),
                     "academician_orcid": acad.get("orcid", ""),
                     "title": pub.get("title", ""),
                     "type": pub.get("type", "other"),
@@ -333,7 +334,7 @@ def api_stats(year, month):
     source_dist = Counter(p.get("source", "other") for p in curr_pubs)
 
     academicians = load_academicians()
-    acad_names = {a["name"] for a in academicians}
+    acad_names = {ah.name(a) for a in academicians}
 
     curr_active = len({p["academician_name"] for p in curr_pubs if p["academician_name"] in acad_names})
     prev_active = len({p["academician_name"] for p in prev_pubs if p["academician_name"] in acad_names})

@@ -21,6 +21,7 @@ from collections import defaultdict
 
 import requests
 from dergipark import scan_dergipark
+import acad_helpers as ah
 
 # ── Renkler ──────────────────────────────────────────────────────────────────
 R  = "\033[0m"
@@ -181,8 +182,8 @@ def _map_ss_type(pub_types):
 # ── Akademisyen tarama ─────────────────────────────────────────────────────────
 def scan_one(acad: dict, year=None, months=None, all_time=False, verbose=True) -> list:
     """months: set[int] | None"""
-    name   = acad["name"]
-    orcid  = acad.get("orcid", "")
+    name   = ah.name(acad)
+    orcid  = ah.orcid(acad)
     pubs   = []
     seen_dois   = set()
     seen_titles = set()
@@ -298,9 +299,9 @@ def save_json(all_results: list, year, months, all_time, path: Path):
         for p in r["pubs"]:
             publications.append({
                 "id": str(uuid.uuid4()),
-                "academician_name": acad["name"],
+                "academician_name": ah.name(acad),
                 "academician_orcid": acad.get("orcid", ""),
-                "academician_institution": acad.get("institution", ""),
+                "academician_institution": ah.institution(acad),
                 "title": p["title"],
                 "type": p["type"],
                 "year": p["year"],
@@ -335,7 +336,7 @@ def save_html(all_results: list, year, months, all_time, path: Path):
     for r in all_results:
         acad = r["acad"]
         for p in r["pubs"]:
-            publications.append({**p, "academician_name": acad["name"]})
+            publications.append({**p, "academician_name": ah.name(acad)})
 
     # Rapor üretici tek ay bekliyor; çok aylıda ilk ayı ya da 0 ver
     disp_month = (sorted(months)[0] if months and len(months) == 1
@@ -477,8 +478,8 @@ def main():
         print(f"{B}{'═'*60}{R}\n")
         for i, r in enumerate(all_results, 1):
             acad = r["acad"]
-            print(f"{BL}[{i}/{len(all_results)}]{R} {B}{acad['name']}{R}  {DIM}{acad.get('institution','')}{R}")
-            print_results(acad["name"], r["pubs"])
+            print(f"{BL}[{i}/{len(all_results)}]{R} {B}{ah.name(acad)}{R}  {DIM}{ah.institution(acad)}{R}")
+            print_results(ah.name(acad), r["pubs"])
             print()
         demo_months = {9, 10, 11, 12}
         print_summary(all_results, 2024, demo_months, False)
@@ -500,7 +501,7 @@ def main():
     if args.test:
         # ORCID'i olan 3 farklı kurumdan akademisyen seç
         test_names = ["Arzu Öztürkmen", "Cenk Güray", "Songül Karahasanoğlu"]
-        academs = [a for a in all_academs if a["name"] in test_names]
+        academs = [a for a in all_academs if ah.name(a) in test_names]
         label = "TEST (3 akademisyen)"
     else:
         academs = all_academs
@@ -518,9 +519,9 @@ def main():
 
     all_results = []
     for i, acad in enumerate(academs, 1):
-        print(f"{BL}[{i}/{len(academs)}]{R} {B}{acad['name']}{R}  {DIM}{acad.get('institution','')}{R}")
+        print(f"{BL}[{i}/{len(academs)}]{R} {B}{ah.name(acad)}{R}  {DIM}{ah.institution(acad)}{R}")
         pubs = scan_one(acad, year=year, months=months, all_time=all_time, verbose=True)
-        print_results(acad["name"], pubs)
+        print_results(ah.name(acad), pubs)
         all_results.append({"acad": acad, "pubs": pubs})
         print()
 

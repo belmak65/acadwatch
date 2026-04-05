@@ -269,8 +269,9 @@ def _map_ss_type(pub_types: list) -> str:
 
 def scan_academician(academician: dict, year: int, month: int) -> dict:
     """Tek bir akademisyen için tüm kaynaklardan tara."""
-    name = academician["name"]
-    orcid = academician.get("orcid", "")
+    import acad_helpers as ah
+    name = ah.name(academician)
+    orcid = ah.orcid(academician)
 
     print(f"  Taranan: {name}")
     publications = []
@@ -308,7 +309,7 @@ def scan_all(
 
     for i, acad in enumerate(academicians):
         if progress_callback:
-            progress_callback(i, total, acad["name"])
+            progress_callback(i, total, acad.get("isim") or acad.get("name", ""))
         result = scan_academician(acad, year, month)
         all_results.append(result)
         time.sleep(0.3)

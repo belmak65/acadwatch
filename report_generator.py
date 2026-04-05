@@ -4,6 +4,7 @@ Aylık HTML raporu oluşturur.
 """
 from datetime import datetime
 from collections import defaultdict
+import acad_helpers as ah
 
 MONTHS_TR = {
     1: "Ocak", 2: "Şubat", 3: "Mart", 4: "Nisan",
@@ -66,8 +67,8 @@ def generate_report(
     # İstatistikler
     total_curr = len(current_data.get("publications", []))
     total_prev = len(prev_data.get("publications", [])) if prev_data else 0
-    active_curr = len([a for a in academicians if curr_grouped.get(a["name"])])
-    active_prev = len([a for a in academicians if prev_grouped.get(a["name"])]) if prev_data else 0
+    active_curr = len([a for a in academicians if curr_grouped.get(ah.name(a))])
+    active_prev = len([a for a in academicians if prev_grouped.get(ah.name(a))]) if prev_data else 0
 
     type_counts = defaultdict(int)
     for pub in current_data.get("publications", []):
@@ -75,8 +76,8 @@ def generate_report(
 
     # Rapor tablosu satırları
     table_rows = ""
-    for acad in sorted(academicians, key=lambda x: x["name"]):
-        name = acad["name"]
+    for acad in sorted(academicians, key=lambda x: ah.name(x)):
+        name = ah.name(acad)
         curr_pubs = curr_grouped.get(name, [])
         prev_pubs = prev_grouped.get(name, [])
         curr_count = len(curr_pubs)
@@ -94,8 +95,8 @@ def generate_report(
         else:
             diff_html = f'<span class="badge bg-secondary">0</span>'
 
-        institution = acad.get("institution", "")
-        profile_url = acad.get("profileUrl", "")
+        institution = ah.institution(acad)
+        profile_url = ah.profile_url(acad)
         name_html = f'<a href="{profile_url}" target="_blank">{name}</a>' if profile_url else name
 
         types_html = ""
@@ -116,8 +117,8 @@ def generate_report(
 
     # Detaylı yayın listesi
     detail_sections = ""
-    for acad in sorted(academicians, key=lambda x: x["name"]):
-        name = acad["name"]
+    for acad in sorted(academicians, key=lambda x: ah.name(x)):
+        name = ah.name(acad)
         curr_pubs = curr_grouped.get(name, [])
         if not curr_pubs:
             continue
@@ -149,8 +150,8 @@ def generate_report(
               <td><span class="badge bg-light text-dark border small">{source_label}</span></td>
             </tr>"""
 
-        profile_url = acad.get("profileUrl", "")
-        institution = acad.get("institution", "")
+        profile_url = ah.profile_url(acad)
+        institution = ah.institution(acad)
         header_link = f'<a href="{profile_url}" target="_blank" class="text-decoration-none">{name}</a>' if profile_url else name
 
         detail_sections += f"""
